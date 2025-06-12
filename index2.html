@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tural Mammadli - Backend Developer Portfolio</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <header class="header">
+        <nav class="navbar">
+            <div class="brand-logo">Tural Mammadli</div>
+            <ul class="nav-links">
+                <li><a href="#about">About Me</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+        <div class="intro">
+            <h1>Hello, I'm Tural Mammadli</h1>
+            <p>Backend Developer specializing in Java, Spring Boot, and PostgreSQL.</p>
+            <button class="btn-animated" onclick="scrollToSection('projects')">View My Work</button>
+        </div>
+        <div class="scroll-indicator">
+            <i class="fas fa-chevron-down"></i>
+        </div>
+    </header>
+
+    <section id="about" class="about">
+        <h2>About Me</h2>
+        <div class="about-content">
+            <div class="profile-picture">
+                <img src="profile.jpg" alt="Tural Mammadli">
+            </div>
+            <div class="about-text">
+                <p>I am a passionate backend developer who loves building efficient, scalable systems. I primarily code in Java, using Spring Boot and PostgreSQL to create robust server-side applications. I also have experience working on machine learning projects, including sentiment analysis and image approximation.</p>
+                <p>My skills include:</p>
+                <ul>
+                    <li>Java & Spring Boot</li>
+                    <li>PostgreSQL & Database Design</li>
+                    <li>RESTful API Development</li>
+                    <li>Python for Machine Learning</li>
+                    <li>Git & Version Control</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects" class="projects">
+        <h2>Projects</h2>
+        <div class="project-cards">
+            <div class="project-card">
+                <div class="project-image" style="background-image: url('library.jpg');"></div>
+                <div class="project-content">
+                    <h3>Library Management System</h3>
+                    <p>A comprehensive system to manage book inventories, borrower details, and transaction history for libraries, built using Java and PostgreSQL.</p>
+                    <a href="#" class="project-link">Learn More <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-image" style="background-image: url('wedding.jpg');"></div>
+                <div class="project-content">
+                    <h3>Wedding Management App (In Progress)</h3>
+                    <p>A tool to help manage guest lists, event planning, and vendors, aimed at simplifying the wedding preparation process. Developed using Java and Spring Boot.</p>
+                    <a href="#" class="project-link">Learn More <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-image" style="background-image: url('sentiment.jpg');"></div>
+                <div class="project-content">
+                    <h3>Sentiment Analysis Tool</h3>
+                    <p>A Python-based tool that analyzes text data to determine sentiment, using natural language processing techniques.</p>
+                    <a href="#" class="project-link">Learn More <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-image" style="background-image: url('image-approximation.jpg');"></div>
+                <div class="project-content">
+                    <h3>Image Approximation</h3>
+                    <p>A Python project that uses genetic algorithms to approximate complex images using basic shapes. Fun and artistic approach to demonstrate optimization techniques.</p>
+                    <a href="#" class="project-link">Learn More <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="contact">
+        <h2>Contact Me</h2>
+        <div class="contact-container">
+            <form class="contact-form">
+                <div class="form-group">
+                    <input type="text" name="name" placeholder="Your Name" required>
+                </div>
+                <div class="form-group">
+                    <input type="email" name="email" placeholder="Your Email" required>
+                </div>
+                <div class="form-group">
+                    <textarea name="message" rows="5" placeholder="Your Message" required></textarea>
+                </div>
+                <button type="submit" class="btn-animated">Send Message</button>
+            </form>
+            <div class="contact-info">
+                <p>Feel free to reach me at:</p>
+                <p><a href="mailto:tural.mammadli@gmail.com">tural.mammadli@gmail.com</a></p>
+                <p>Connect with me on social media:</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                    <a href="#"><i class="fab fa-github"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <p>&copy; 2024 Tural Mammadli. All rights reserved.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
