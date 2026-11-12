@@ -34,7 +34,7 @@
   --moon: #F3EFD2;
   --bw: 1.5px;
   --r: 14px;
-  --pop: cubic-bezier(.2, .7, .2, 1);
+  --pop: cubic-bezier(.34, 1.5, .64, 1);
   --font-head: "Space Grotesk", "Inter", system-ui, sans-serif;
   --font-body: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
@@ -73,9 +73,9 @@ main, .footer { position: relative; z-index: 1; }
 }
 .btn-primary { color: var(--bg); background: var(--ink); border-color: var(--ink); font-size: 1.02rem; padding: 13px 28px; }
 .btn-white { background: var(--paper); }
-.btn:hover { transform: translateY(-3px); box-shadow: var(--sh-hover); }
+.btn:hover { transform: translateY(-3px) rotate(-1deg); box-shadow: var(--sh-hover); }
 .btn-primary:hover { background: var(--sun); border-color: var(--sun); color: var(--on); }
-.btn:active { transform: translateY(1px); box-shadow: var(--sh-press); transition-duration: .06s; }
+.btn:active { transform: translateY(2px) scale(1.03, .94); box-shadow: var(--sh-press); transition-duration: .06s; }
 .text-link { font-family: var(--font-head); font-weight: 500; font-size: 1.05rem; color: var(--ink); text-decoration: none; background: linear-gradient(var(--sun), var(--sun)) 0 100% / 100% 4px no-repeat; transition: background-size .25s; padding-bottom: 2px; }
 .text-link:hover { background-size: 100% 100%; }
 
@@ -139,9 +139,11 @@ h1 { font-size: clamp(2.8rem, 6vw, 4.7rem); font-weight: 700; margin-bottom: 22p
 h1 .word { display: inline-block; white-space: nowrap; position: relative; margin-right: .2em; }
 .ch { display: inline-block; }
 .js .ch { animation: letterPop .6s var(--pop) both; animation-delay: calc(var(--i) * 28ms + .1s); }
-@keyframes letterPop { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
+@keyframes letterPop { from { opacity: 0; transform: translateY(40px) rotate(-12deg) scale(.6); } to { opacity: 1; transform: none; } }
+@keyframes wiggle { 25% { transform: translateY(-8px) rotate(-8deg); } 60% { transform: translateY(2px) rotate(6deg); } }
+.ch:hover { animation: wiggle .5s; color: var(--sky-ink); }
 .scribble { position: absolute; left: 0; bottom: -.12em; width: 100%; height: .3em; overflow: visible; }
-.scribble path { fill: none; stroke: var(--sun-deep); stroke-width: 5; stroke-linecap: round; stroke-dasharray: 1; stroke-dashoffset: 0; }
+.scribble path { fill: none; stroke: var(--sun-deep); stroke-width: 6; stroke-linecap: round; stroke-dasharray: 1; stroke-dashoffset: 0; }
 .js .scribble path { stroke-dashoffset: 1; animation: draw .9s .95s ease-out forwards; }
 @keyframes draw { to { stroke-dashoffset: 0; } }
 
@@ -150,7 +152,7 @@ h1 .word { display: inline-block; white-space: nowrap; position: relative; margi
 
 .stats { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin: 0; max-width: 580px; }
 .stats > div { background: var(--paper); border: var(--bw) solid var(--border); border-radius: 16px; padding: 12px 16px; box-shadow: var(--sh); position: relative; transition: transform .25s var(--pop); }
-.stats > div:hover { transform: translateY(-4px); }
+.stats > div:hover { transform: translateY(-4px) rotate(-1deg); }
 .stats > div::before { content: ""; position: absolute; top: 12px; right: 12px; width: 14px; height: 14px; border-radius: 50%; border: var(--bw) solid var(--border); }
 .s-ml::before { background: var(--sky); }
 .s-sw::before { background: var(--sun); }
@@ -165,9 +167,9 @@ h1 .word { display: inline-block; white-space: nowrap; position: relative; margi
 .cloud-b { animation: drift 18s ease-in-out -6s infinite alternate-reverse; }
 @keyframes drift { to { transform: translateX(70px); } }
 .mascot .bob { animation: mbob 3.6s ease-in-out infinite; }
-@keyframes mbob { 50% { transform: translateY(-5px); } }
+@keyframes mbob { 50% { transform: translateY(-9px); } }
 .mascot .rays { animation: spin 30s linear infinite; }
-.mascot .rays { transform-box: fill-box; transform-origin: center; }
+.mascot .rays, .mascot .eye, .mascot .squash, .mascot .mouth { transform-box: fill-box; transform-origin: center; }
 .nd { animation: nodepop 2.8s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
 .nd:nth-of-type(2) { animation-delay: -.5s; } .nd:nth-of-type(3) { animation-delay: -1s; } .nd:nth-of-type(4) { animation-delay: -1.5s; } .nd:nth-of-type(5) { animation-delay: -2s; }
 @keyframes nodepop { 50% { transform: scale(1.18); } }
@@ -202,10 +204,9 @@ h1 .word { display: inline-block; white-space: nowrap; position: relative; margi
 .sub .badge { vertical-align: 1px; }
 
 /* wavy bands (common region + common fate: waves drift together) */
-.band { border-block: 1px solid var(--border); }
-.band-sky { background: rgba(214, 238, 255, .7); }
-.band-sun { background: rgba(255, 233, 168, .6); }
-.band-mint { background: rgba(210, 245, 230, .7); }
+.band-sky { background: rgba(214, 238, 255, .8); }
+.band-sun { background: rgba(255, 233, 168, .8); }
+.band-mint { background: rgba(210, 245, 230, .8); }
 
 /* ---------- About ---------- */
 .about-grid { display: grid; grid-template-columns: 1.4fr 1fr; gap: 56px; align-items: start; }
@@ -270,7 +271,7 @@ h1 .word { display: inline-block; white-space: nowrap; position: relative; margi
 .cards-more { margin-top: 28px; }
 .js .cards-more:not(.open) { display: none; }
 .card { position: relative; display: flex; flex-direction: column; padding: 24px 26px; transition: transform .25s var(--pop), box-shadow .25s var(--pop); }
-.card:hover { transform: translateY(-3px); box-shadow: var(--sh-hover); }
+.card:hover { transform: translateY(-4px) rotate(-.5deg); box-shadow: var(--sh-hover); }
 .badges { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
 .kind { color: var(--muted); margin: 0 0 6px; }
 .card h3 { font-size: 1.4rem; margin-bottom: 10px; }
@@ -333,7 +334,7 @@ h1 .word { display: inline-block; white-space: nowrap; position: relative; margi
 .js .reveal:not(.in) { opacity: 0; }
 .js .reveal.in, .js .cards-more .card.in { animation: rise .75s var(--pop) backwards; }
 .js .cards .reveal:nth-child(2n).in { animation-delay: .1s; }
-@keyframes rise { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: none; } }
+@keyframes rise { from { opacity: 0; transform: translateY(32px) scale(.95) rotate(-.8deg); } to { opacity: 1; transform: none; } }
 
 /* ---------- Responsive ---------- */
 @media (max-width: 980px) {
@@ -381,6 +382,42 @@ h1 .word { display: inline-block; white-space: nowrap; position: relative; margi
   .js .scribble path { stroke-dashoffset: 0; }
   .js .pips i.on { transform: none; }
 }
+
+/* ---------- Brought back: playful motion on top of the calmer look ---------- */
+.floaties { position: absolute; inset: 0; pointer-events: none; z-index: 1; }
+.fl { position: absolute; will-change: transform; }
+.fl-star { left: 4%; top: 24%; animation: bob 5s ease-in-out infinite; }
+.fl-plus { left: 47%; top: 13%; animation: bob 6s ease-in-out -2s infinite; }
+.fl-dot { left: 50%; bottom: 11%; animation: bob 4.5s ease-in-out -1s infinite; }
+.fl-squig { right: 5%; bottom: 14%; animation: bob 5.5s ease-in-out -3s infinite; }
+.fl-tri { left: 2%; bottom: 14%; animation: bob 6.5s ease-in-out -4s infinite; }
+.fl-ring { right: 3%; top: 48%; animation: spin 18s linear infinite; }
+@keyframes bob { 50% { translate: 0 -14px; rotate: 8deg; } }
+.mascot { cursor: pointer; }
+.mascot .eye { animation: blink 5s infinite; }
+.mascot .eye:nth-of-type(2) { animation-delay: .04s; }
+@keyframes blink { 0%, 94%, 100% { scale: 1 1; } 97% { scale: 1 .08; } }
+.mascot .mouth { transition: transform .25s var(--pop); }
+.vision-frame:hover .mouth { transform: scaleY(1.45) translateY(2px); }
+.mascot.jump .squash { animation: squash .7s var(--pop); }
+@keyframes squash { 0% { transform: scale(1); } 20% { transform: scale(1.18, .78); } 50% { transform: scale(.86, 1.18) translateY(-10px); } 100% { transform: scale(1); } }
+.wave { height: 36px; margin-bottom: -1px; background-repeat: repeat-x; background-size: 160px 36px; animation: waveMove 9s linear infinite; position: relative; z-index: 1; }
+.wave.flip { transform: scaleY(-1); margin-bottom: 0; margin-top: -1px; animation-direction: reverse; }
+@keyframes waveMove { to { background-position-x: 160px; } }
+.w-sky { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='36' viewBox='0 0 160 36'%3E%3Cpath d='M0 18Q40 0 80 18T160 18V36H0Z' fill='%23D6EEFF' fill-opacity='.8'/%3E%3C/svg%3E"); }
+.w-sun { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='36' viewBox='0 0 160 36'%3E%3Cpath d='M0 18Q40 0 80 18T160 18V36H0Z' fill='%23FFE9A8' fill-opacity='.8'/%3E%3C/svg%3E"); }
+.w-mint { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='36' viewBox='0 0 160 36'%3E%3Cpath d='M0 18Q40 0 80 18T160 18V36H0Z' fill='%23D2F5E6' fill-opacity='.8'/%3E%3C/svg%3E"); }
+.fl svg, svg.fl { overflow: visible; }
+.tt-face { transition: opacity .4s; }
+.bubble { position: absolute; left: 6%; top: 8%; max-width: 46%; background: var(--paper); color: #1B2540; border: 1.5px solid rgba(27, 37, 64, .35); border-radius: 12px; padding: 7px 14px; font-family: var(--font-head); font-weight: 500; font-size: .98rem; line-height: 1.3; text-align: left; box-shadow: var(--sh); animation: bubbleIn .6s 1.6s var(--pop) backwards; z-index: 3; }
+.bubble::after { content: ""; position: absolute; right: -8px; top: 50%; width: 14px; height: 14px; margin-top: -7px; background: #fff; border-right: 1.5px solid rgba(27, 37, 64, .35); border-top: 1.5px solid rgba(27, 37, 64, .35); transform: rotate(45deg); border-radius: 0 3px 0 0; }
+.bubble.say { animation: bubblePop .45s var(--pop); }
+@keyframes bubbleIn { from { opacity: 0; transform: scale(.3) rotate(-8deg); } }
+@keyframes bubblePop { 0% { transform: scale(.7) rotate(-4deg); } 100% { transform: none; } }
+@media (max-width: 760px) { .floaties { display: none; } }
+html[data-theme="dark"] .w-sky { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='36' viewBox='0 0 160 36'%3E%3Cpath d='M0 18Q40 0 80 18T160 18V36H0Z' fill='%2320407A' fill-opacity='.42'/%3E%3C/svg%3E"); }
+html[data-theme="dark"] .w-sun { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='36' viewBox='0 0 160 36'%3E%3Cpath d='M0 18Q40 0 80 18T160 18V36H0Z' fill='%2350428C' fill-opacity='.38'/%3E%3C/svg%3E"); }
+html[data-theme="dark"] .w-mint { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='36' viewBox='0 0 160 36'%3E%3Cpath d='M0 18Q40 0 80 18T160 18V36H0Z' fill='%23175048' fill-opacity='.42'/%3E%3C/svg%3E"); }
 
 /* ==========================================================
    Night mode: the sun in the corner becomes a moon, the palette

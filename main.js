@@ -230,7 +230,42 @@
     frame.addEventListener('pointerdown', (e) => { frame.classList.add('touch'); move(e); });
     frame.addEventListener('pointerleave', () => frame.classList.remove('touch'));
 
-    if (reduceMotion) {
+    // mascot: eyes follow the cursor, click to bounce and talk
+    const mascot = $('#mascot'), body = $('#mascotBody'), pupils = $$('.pupil', mascot), bubble = $('#bubble');
+    const lines = ['Hi!', 'Poke me again.', 'I follow your mouse.', 'The lab is further down.', 'Okay, that is enough poking.'];
+    let li = 0;
+    const talk = () => {
+      li = (li + 1) % lines.length;
+      bubble.textContent = lines[li];
+      bubble.classList.remove('say'); void bubble.offsetWidth; bubble.classList.add('say');
+      mascot.classList.remove('jump'); void mascot.getBoundingClientRect(); mascot.classList.add('jump');
+    };
+    mascot.addEventListener('click', talk);
+    bubble.addEventListener('click', talk);
+    if (!reduceMotion) {
+      window.addEventListener('pointermove', (e) => {
+        const r = body.getBoundingClientRect();
+        const dx = e.clientX - (r.left + r.width / 2), dy = e.clientY - (r.top + r.height / 2);
+        const d = Math.hypot(dx, dy) || 1, k = Math.min(1, d / 220) * 5.5;
+        pupils.forEach((p) => p.setAttribute('transform', `translate(${(dx / d) * k} ${(dy / d) * k})`));
+      }, { passive: true });
+
+      // floating shapes drift against the cursor (common fate: they move together)
+      const fl = $$('.fl');
+      let tx = 0, ty = 0, cx = 0, cy = 0;
+      window.addEventListener('pointermove', (e) => {
+        tx = e.clientX / window.innerWidth - 0.5; ty = e.clientY / window.innerHeight - 0.5;
+      }, { passive: true });
+      const loop = () => {
+        cx += (tx - cx) * 0.06; cy += (ty - cy) * 0.06;
+        fl.forEach((el) => {
+          const d = parseFloat(el.dataset.depth || '20');
+          el.style.transform = `translate(${cx * d}px, ${cy * d}px)`;
+        });
+        requestAnimationFrame(loop);
+      };
+      requestAnimationFrame(loop);
+    } else {
       $$('.packets animateMotion').forEach((a) => a.parentElement.remove());
     }
   })();
@@ -592,6 +627,7 @@
   (function theme() {
     const btn = $('#themeToggle');
     const meta = $('meta[name="theme-color"]');
+    const bubble = $('#bubble');
     const bats = $$('.bat');
     const sync = () => {
       const dark = isDark();
@@ -608,6 +644,10 @@
       if (dark) root.dataset.theme = 'dark'; else delete root.dataset.theme;
       try { localStorage.setItem('theme', dark ? 'dark' : 'light'); } catch (_) {}
       sync();
+      if (bubble) {
+        bubble.textContent = dark ? 'Good night. The bats are shy.' : 'Good morning!';
+        bubble.classList.remove('say'); void bubble.offsetWidth; bubble.classList.add('say');
+      }
       setTimeout(() => root.classList.remove('theme-anim'), 800);
     });
 
