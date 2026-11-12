@@ -45,7 +45,7 @@ a { color: var(--sky-ink); }
 h1, h2, h3 { font-family: var(--font-head); font-weight: 600; line-height: 1.12; margin: 0; letter-spacing: 0; }
 p { margin: 0 0 1em; }
 ul, ol { margin: 0; padding: 0; list-style: none; }
-button { font: inherit; color: inherit; cursor: pointer; }
+button { -webkit-tap-highlight-color: transparent; font: inherit; color: inherit; cursor: pointer; }
 :focus-visible { outline: 4px solid var(--sky); outline-offset: 3px; border-radius: 8px; }
 .mono { font-family: var(--font-mono); font-size: .76rem; font-weight: 500; letter-spacing: .01em; }
 .wrap { width: min(1120px, 100% - 48px); margin-inline: auto; }
