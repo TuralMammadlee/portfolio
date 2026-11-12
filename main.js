@@ -5,6 +5,8 @@
   const $ = (sel, root = document) => root.querySelector(sel);
   const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
   const INK = '#1B2540';
+  const root = document.documentElement;
+  const isDark = () => root.dataset.theme === 'dark';
 
   /* ------------------------------------------------------------------
      1. Background network: cartoon nodes, proximity edges, data packets,
@@ -13,7 +15,9 @@
   (function network() {
     const canvas = $('#net');
     const ctx = canvas.getContext('2d');
-    const FILLS = ['#5BB8FF', '#5BB8FF', '#FFC83D', '#6EDBB4'];
+    const DAY = { fills: ['#5BB8FF', '#5BB8FF', '#FFC83D', '#6EDBB4'], edge: '27,37,64', stroke: 'rgba(27,37,64,.55)', dot: '#FFC83D', ring: INK };
+    const NIGHT = { fills: ['#9FA8FF', '#F3EFD2', '#F3EFD2', '#8FD0FF'], edge: '175,185,255', stroke: 'rgba(210,215,255,.6)', dot: '#F3EFD2', ring: '#B7BDFF' };
+    let pal = DAY;
     const LINK = 150;
     const MOUSE_LINK = 190;
     let w = 0, h = 0, dpr = 1, nodes = [], packets = [], lastSpawn = 0;
@@ -22,7 +26,7 @@
     const makeNode = () => ({
       x: Math.random() * w, y: Math.random() * h,
       vx: (Math.random() - 0.5) * 0.3, vy: (Math.random() - 0.5) * 0.3,
-      r: 3.5 + Math.random() * 2.5, c: FILLS[(Math.random() * FILLS.length) | 0],
+      r: 3.5 + Math.random() * 2.5, ci: (Math.random() * 4) | 0,
     });
 
     function resize() {
@@ -56,31 +60,31 @@
           const b = nodes[j];
           const d = Math.hypot(a.x - b.x, a.y - b.y);
           if (d < LINK) {
-            ctx.strokeStyle = `rgba(27,37,64,${(1 - d / LINK) * 0.26})`;
+            ctx.strokeStyle = `rgba(${pal.edge},${(1 - d / LINK) * 0.26})`;
             ctx.lineWidth = 2;
             ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
           }
         }
         const dm = Math.hypot(a.x - mouse.x, a.y - mouse.y);
         if (dm < MOUSE_LINK) {
-          ctx.strokeStyle = `rgba(27,37,64,${(1 - dm / MOUSE_LINK) * 0.6})`;
+          ctx.strokeStyle = `rgba(${pal.edge},${(1 - dm / MOUSE_LINK) * 0.6})`;
           ctx.lineWidth = 2.5;
           ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(mouse.x, mouse.y); ctx.stroke();
         }
       }
       ctx.lineWidth = 2;
-      ctx.strokeStyle = 'rgba(27,37,64,.55)';
+      ctx.strokeStyle = pal.stroke;
       for (const n of nodes) {
-        ctx.fillStyle = n.c;
+        ctx.fillStyle = pal.fills[n.ci];
         ctx.beginPath(); ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
       }
       if (mouse.x > -999) {
-        ctx.fillStyle = '#FFC83D'; ctx.strokeStyle = INK; ctx.lineWidth = 2.5;
+        ctx.fillStyle = pal.dot; ctx.strokeStyle = pal.ring; ctx.lineWidth = 2.5;
         ctx.beginPath(); ctx.arc(mouse.x, mouse.y, 6, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
       }
       for (const p of packets) {
         const x = p.a.x + (p.b.x - p.a.x) * p.t, y = p.a.y + (p.b.y - p.a.y) * p.t;
-        ctx.fillStyle = '#FFC83D'; ctx.strokeStyle = INK; ctx.lineWidth = 2;
+        ctx.fillStyle = pal.dot; ctx.strokeStyle = pal.ring; ctx.lineWidth = 2;
         ctx.beginPath(); ctx.arc(x, y, 5.5, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
       }
     }
@@ -100,6 +104,8 @@
       requestAnimationFrame(tick);
     }
 
+    window.addEventListener('themechange', () => { pal = isDark() ? NIGHT : DAY; if (reduceMotion) draw(); });
+    pal = isDark() ? NIGHT : DAY;
     window.addEventListener('resize', resize);
     window.addEventListener('pointermove', (e) => { mouse.x = e.clientX; mouse.y = e.clientY; }, { passive: true });
     document.addEventListener('pointerleave', () => { mouse.x = mouse.y = -9999; });
@@ -452,7 +458,10 @@
     const W = 1100, H = 820, CX = W / 2, CY = H / 2;
     const el = (name, attrs = {}, parent) => {
       const e = document.createElementNS(NS, name);
-      for (const k in attrs) e.setAttribute(k, attrs[k]);
+      for (const k in attrs) {
+        if (typeof attrs[k] === 'string' && attrs[k].startsWith('var(')) e.style.setProperty(k, attrs[k]);
+        else e.setAttribute(k, attrs[k]);
+      }
       if (parent) parent.appendChild(e);
       return e;
     };
@@ -492,7 +501,7 @@
         const lg = el('g', {}, wrap);
         const li = el('g', { class: 'leaf-in' }, lg);
         li.style.setProperty('--i', k);
-        el('circle', { r: 7, fill, stroke: INK, 'stroke-width': 3 }, li);
+        el('circle', { r: 7, fill, stroke: 'var(--line)', 'stroke-width': 3 }, li);
         const side = leaf.cos >= 0 ? 'start' : 'end';
         const t = el('text', { class: 'sg-label', x: side === 'start' ? 14 : -14, y: 5, 'text-anchor': side }, li);
         t.textContent = name;
@@ -504,11 +513,11 @@
       const hubG = el('g', { class: 'sg-hub' }, gHubs);
       const inner = el('g', { class: 'hub-in' }, hubG);
       const tw = grp.name.length * 9.4 + 44;
-      el('rect', { x: -tw / 2 + 4, y: -16 + 4, width: tw, height: 34, rx: 17, fill: INK }, inner);
-      el('rect', { x: -tw / 2, y: -16, width: tw, height: 34, rx: 17, fill, stroke: INK, 'stroke-width': 3 }, inner);
+      el('rect', { x: -tw / 2 + 4, y: -16 + 4, width: tw, height: 34, rx: 17, fill: 'var(--shade)' }, inner);
+      el('rect', { x: -tw / 2, y: -16, width: tw, height: 34, rx: 17, fill, stroke: 'var(--line)', 'stroke-width': 3 }, inner);
       const label = el('text', { class: 'sg-hub-label', x: -8, y: 1, 'text-anchor': 'middle', 'dominant-baseline': 'central' }, inner);
       label.textContent = grp.name;
-      el('circle', { cx: tw / 2 - 18, cy: 1, r: 10, fill: '#fff', stroke: INK, 'stroke-width': 2.5 }, inner);
+      el('circle', { cx: tw / 2 - 18, cy: 1, r: 10, fill: '#fff', stroke: 'var(--line)', 'stroke-width': 2.5 }, inner);
       const cnt = el('text', { class: 'sg-count', x: tw / 2 - 18, y: 1, 'text-anchor': 'middle', 'dominant-baseline': 'central' }, inner);
       cnt.textContent = n;
       hub.node = hubG; hub.hw = tw;
@@ -519,7 +528,7 @@
 
     // centre node
     el('circle', { class: 'sg-halo', r: 46, fill: '#FFC83D', 'fill-opacity': 0.3 }, gCenter);
-    el('circle', { r: 30, fill: '#FFC83D', stroke: INK, 'stroke-width': 4 }, gCenter);
+    el('circle', { r: 30, fill: '#FFC83D', stroke: 'var(--line)', 'stroke-width': 4 }, gCenter);
     const ct = el('text', { x: 0, y: 1, 'text-anchor': 'middle', 'dominant-baseline': 'central', style: 'font-family:Fredoka,sans-serif;font-weight:700;font-size:19px;fill:#1B2540' }, gCenter);
     ct.textContent = 'TM';
     center.node = gCenter;
@@ -610,5 +619,50 @@
       setTimeout(() => { msg.textContent = ''; }, 2000);
     });
     $('#year').textContent = new Date().getFullYear();
+  })();
+
+  /* ------------------------------------------------------------------
+     9. Theme: the sun in the corner switches day and night.
+        Night turns the sun into a moon and lets the bats peek in.
+  ------------------------------------------------------------------ */
+  (function theme() {
+    const btn = $('#themeToggle');
+    const meta = $('meta[name="theme-color"]');
+    const bubble = $('#bubble');
+    const bats = $$('.bat');
+    const sync = () => {
+      const dark = isDark();
+      btn.setAttribute('aria-pressed', String(dark));
+      const label = dark ? 'Switch to day mode' : 'Switch to dark mode';
+      btn.setAttribute('aria-label', label); btn.title = label;
+      if (meta) meta.setAttribute('content', dark ? '#0E1330' : '#FFF8E6');
+      window.dispatchEvent(new Event('themechange'));
+    };
+    sync();
+    btn.addEventListener('click', () => {
+      const dark = !isDark();
+      root.classList.add('theme-anim');
+      if (dark) root.dataset.theme = 'dark'; else delete root.dataset.theme;
+      try { localStorage.setItem('theme', dark ? 'dark' : 'light'); } catch (_) {}
+      sync();
+      if (bubble) {
+        bubble.textContent = dark ? 'Good night. The bats are shy.' : 'Good morning!';
+        bubble.classList.remove('say'); void bubble.offsetWidth; bubble.classList.add('say');
+      }
+      setTimeout(() => root.classList.remove('theme-anim'), 800);
+    });
+
+    // bat pupils follow the cursor
+    if (reduceMotion) return;
+    window.addEventListener('pointermove', (e) => {
+      if (!isDark()) return;
+      bats.forEach((b) => {
+        const r = b.getBoundingClientRect();
+        const dx = e.clientX - (r.left + r.width / 2), dy = e.clientY - (r.top + r.height / 2);
+        const d = Math.hypot(dx, dy) || 1, k = Math.min(1, d / 260) * 2.6;
+        const flip = b.classList.contains('bat-r1') || b.classList.contains('bat-r2') ? -1 : 1;
+        $$('.bpupil', b).forEach((p) => p.setAttribute('transform', `translate(${(dx / d) * k * flip} ${(dy / d) * k})`));
+      });
+    }, { passive: true });
   })();
 })();
