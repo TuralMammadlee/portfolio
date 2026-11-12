@@ -139,7 +139,7 @@
     });
 
     // Sections without their own nav link belong to the nearest one above them.
-    const owner = { top: null, about: 'about', skills: 'about', experience: 'experience', projects: 'projects', lab: 'projects', contact: 'contact' };
+    const owner = { top: null, about: 'about', skills: 'about', experience: 'experience', projects: 'projects', lab: 'projects', cinema: 'cinema', contact: 'contact' };
     const map = new Map($$('a', links).map((a) => [a.getAttribute('href').slice(1), a]));
     const io = new IntersectionObserver((entries) => {
       entries.forEach((en) => {
@@ -230,42 +230,7 @@
     frame.addEventListener('pointerdown', (e) => { frame.classList.add('touch'); move(e); });
     frame.addEventListener('pointerleave', () => frame.classList.remove('touch'));
 
-    // mascot: eyes follow the cursor, click to bounce and talk
-    const mascot = $('#mascot'), body = $('#mascotBody'), pupils = $$('.pupil', mascot), bubble = $('#bubble');
-    const lines = ['Hi!', 'Poke me again.', 'I follow your mouse.', 'The lab is further down.', 'Okay, that is enough poking.'];
-    let li = 0;
-    const talk = () => {
-      li = (li + 1) % lines.length;
-      bubble.textContent = lines[li];
-      bubble.classList.remove('say'); void bubble.offsetWidth; bubble.classList.add('say');
-      mascot.classList.remove('jump'); void mascot.getBoundingClientRect(); mascot.classList.add('jump');
-    };
-    mascot.addEventListener('click', talk);
-    bubble.addEventListener('click', talk);
-    if (!reduceMotion) {
-      window.addEventListener('pointermove', (e) => {
-        const r = body.getBoundingClientRect();
-        const dx = e.clientX - (r.left + r.width / 2), dy = e.clientY - (r.top + r.height / 2);
-        const d = Math.hypot(dx, dy) || 1, k = Math.min(1, d / 220) * 5.5;
-        pupils.forEach((p) => p.setAttribute('transform', `translate(${(dx / d) * k} ${(dy / d) * k})`));
-      }, { passive: true });
-
-      // floating shapes drift against the cursor (common fate: they move together)
-      const fl = $$('.fl');
-      let tx = 0, ty = 0, cx = 0, cy = 0;
-      window.addEventListener('pointermove', (e) => {
-        tx = e.clientX / window.innerWidth - 0.5; ty = e.clientY / window.innerHeight - 0.5;
-      }, { passive: true });
-      const loop = () => {
-        cx += (tx - cx) * 0.06; cy += (ty - cy) * 0.06;
-        fl.forEach((el) => {
-          const d = parseFloat(el.dataset.depth || '20');
-          el.style.transform = `translate(${cx * d}px, ${cy * d}px)`;
-        });
-        requestAnimationFrame(loop);
-      };
-      requestAnimationFrame(loop);
-    } else {
+    if (reduceMotion) {
       $$('.packets animateMotion').forEach((a) => a.parentElement.remove());
     }
   })();
@@ -501,7 +466,7 @@
         const lg = el('g', {}, wrap);
         const li = el('g', { class: 'leaf-in' }, lg);
         li.style.setProperty('--i', k);
-        el('circle', { r: 7, fill, stroke: 'var(--line)', 'stroke-width': 3 }, li);
+        el('circle', { r: 6.5, fill, stroke: 'var(--line)', 'stroke-width': 2 }, li);
         const side = leaf.cos >= 0 ? 'start' : 'end';
         const t = el('text', { class: 'sg-label', x: side === 'start' ? 14 : -14, y: 5, 'text-anchor': side }, li);
         t.textContent = name;
@@ -513,11 +478,10 @@
       const hubG = el('g', { class: 'sg-hub' }, gHubs);
       const inner = el('g', { class: 'hub-in' }, hubG);
       const tw = grp.name.length * 9.4 + 44;
-      el('rect', { x: -tw / 2 + 4, y: -16 + 4, width: tw, height: 34, rx: 17, fill: 'var(--shade)' }, inner);
-      el('rect', { x: -tw / 2, y: -16, width: tw, height: 34, rx: 17, fill, stroke: 'var(--line)', 'stroke-width': 3 }, inner);
+      el('rect', { x: -tw / 2, y: -16, width: tw, height: 34, rx: 17, fill, stroke: 'var(--line)', 'stroke-width': 2 }, inner);
       const label = el('text', { class: 'sg-hub-label', x: -8, y: 1, 'text-anchor': 'middle', 'dominant-baseline': 'central' }, inner);
       label.textContent = grp.name;
-      el('circle', { cx: tw / 2 - 18, cy: 1, r: 10, fill: '#fff', stroke: 'var(--line)', 'stroke-width': 2.5 }, inner);
+      el('circle', { cx: tw / 2 - 18, cy: 1, r: 10, fill: '#fff', stroke: 'var(--line)', 'stroke-width': 1.5 }, inner);
       const cnt = el('text', { class: 'sg-count', x: tw / 2 - 18, y: 1, 'text-anchor': 'middle', 'dominant-baseline': 'central' }, inner);
       cnt.textContent = n;
       hub.node = hubG; hub.hw = tw;
@@ -528,7 +492,7 @@
 
     // centre node
     el('circle', { class: 'sg-halo', r: 46, fill: '#FFC83D', 'fill-opacity': 0.3 }, gCenter);
-    el('circle', { r: 30, fill: '#FFC83D', stroke: 'var(--line)', 'stroke-width': 4 }, gCenter);
+    el('circle', { r: 30, fill: '#FFC83D', stroke: 'var(--line)', 'stroke-width': 2.5 }, gCenter);
     const ct = el('text', { x: 0, y: 1, 'text-anchor': 'middle', 'dominant-baseline': 'central', style: 'font-family:Fredoka,sans-serif;font-weight:700;font-size:19px;fill:#1B2540' }, gCenter);
     ct.textContent = 'TM';
     center.node = gCenter;
@@ -628,7 +592,6 @@
   (function theme() {
     const btn = $('#themeToggle');
     const meta = $('meta[name="theme-color"]');
-    const bubble = $('#bubble');
     const bats = $$('.bat');
     const sync = () => {
       const dark = isDark();
@@ -645,10 +608,6 @@
       if (dark) root.dataset.theme = 'dark'; else delete root.dataset.theme;
       try { localStorage.setItem('theme', dark ? 'dark' : 'light'); } catch (_) {}
       sync();
-      if (bubble) {
-        bubble.textContent = dark ? 'Good night. The bats are shy.' : 'Good morning!';
-        bubble.classList.remove('say'); void bubble.offsetWidth; bubble.classList.add('say');
-      }
       setTimeout(() => root.classList.remove('theme-anim'), 800);
     });
 
@@ -664,5 +623,23 @@
         $$('.bpupil', b).forEach((p) => p.setAttribute('transform', `translate(${(dx / d) * k * flip} ${(dy / d) * k})`));
       });
     }, { passive: true });
+  })();
+
+  /* ------------------------------------------------------------------
+     10. Cinema: dust drifting through the projector beam
+  ------------------------------------------------------------------ */
+  (function cinema() {
+    const host = $('#dust');
+    if (!host) return;
+    for (let i = 0; i < 22; i++) {
+      const d = document.createElement('i');
+      d.style.left = (18 + Math.random() * 64) + '%';
+      d.style.top = (4 + Math.random() * 62) + '%';
+      d.style.setProperty('--s', (1 + Math.random() * 2.2).toFixed(1) + 'px');
+      d.style.setProperty('--t', (9 + Math.random() * 12).toFixed(1) + 's');
+      d.style.setProperty('--dx', ((Math.random() - 0.5) * 60).toFixed(0) + 'px');
+      d.style.animationDelay = (-Math.random() * 20).toFixed(1) + 's';
+      host.appendChild(d);
+    }
   })();
 })();

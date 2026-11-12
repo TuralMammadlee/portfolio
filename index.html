@@ -12,8 +12,8 @@
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='9' fill='%23FFC83D' stroke='%231B2540' stroke-width='2.5'/%3E%3Ccircle cx='13' cy='15' r='1.5' fill='%231B2540'/%3E%3Ccircle cx='19' cy='15' r='1.5' fill='%231B2540'/%3E%3Cpath d='M12.5 19.5q3.5 3 7 0' stroke='%231B2540' stroke-width='2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=JetBrains+Mono:wght@500&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=2">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css?v=3">
   <script>
     document.documentElement.classList.add('js');
     try { if (localStorage.getItem('theme') === 'dark') document.documentElement.dataset.theme = 'dark'; } catch (e) {}
@@ -28,11 +28,9 @@
       <div class="brand">
         <button class="theme-toggle" id="themeToggle" type="button" aria-pressed="false" aria-label="Switch to dark mode" title="Switch to dark mode">
           <svg viewBox="0 0 40 40" width="38" height="38" aria-hidden="true">
-            <g class="tt-rays" stroke="#1B2540" stroke-width="3" stroke-linecap="round"><path d="M20 2v4M20 34v4M2 20h4M34 20h4M7.3 7.3l2.8 2.8M29.9 29.9l2.8 2.8M32.7 7.3l-2.8 2.8M10.1 29.9l-2.8 2.8"/></g>
-            <circle class="tt-body" cx="20" cy="20" r="10" fill="#FFC83D" stroke="#1B2540" stroke-width="3"/>
-            <g class="tt-craters" fill="#1B2540"><circle cx="14.5" cy="13.5" r="2"/><circle cx="26.5" cy="14" r="1.5"/><circle cx="25" cy="27.5" r="1.8"/></g>
-            <circle cx="16.5" cy="18.5" r="1.7" fill="#1B2540"/><circle cx="23.5" cy="18.5" r="1.7" fill="#1B2540"/>
-            <path d="M15.5 23q4.5 3.5 9 0" stroke="#1B2540" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+            <g class="tt-rays" stroke="#1B2540" stroke-width="2.4" stroke-linecap="round"><path d="M20 2v4M20 34v4M2 20h4M34 20h4M7.3 7.3l2.8 2.8M29.9 29.9l2.8 2.8M32.7 7.3l-2.8 2.8M10.1 29.9l-2.8 2.8"/></g>
+            <circle class="tt-body" cx="20" cy="20" r="9.5" fill="#FFC83D" stroke="#1B2540" stroke-width="2.4"/>
+            <g class="tt-craters" fill="#1B2540"><circle cx="15" cy="15" r="2.4"/><circle cx="25.5" cy="17" r="1.6"/><circle cx="21" cy="26" r="2.2"/></g>
             <g class="tt-stars" fill="#F3EFD2" stroke="#1B2540" stroke-width="1.2" stroke-linejoin="round"><path d="M34 4l1.2 2.6 2.8.4-2 2 .5 2.8L34 10.4l-2.5 1.4.5-2.8-2-2 2.8-.4z"/><path d="M5 30l.9 1.9 2 .3-1.5 1.4.4 2L5 34.600l-1.800 1 .4-2L2.100 32.200l2-.3z"/></g>
           </svg>
         </button>
@@ -43,6 +41,7 @@
         <a href="#about">About</a>
         <a href="#experience">Experience</a>
         <a href="#projects">Projects</a>
+        <a href="#cinema">Cinema</a>
         <a href="#contact" class="nav-cta">Contact</a>
       </nav>
     </div>
@@ -52,21 +51,12 @@
   <main id="main">
     <!-- HERO -->
     <section class="hero" id="top">
-      <div class="floaties" aria-hidden="true">
-        <svg class="fl fl-star" data-depth="26" viewBox="0 0 40 40" width="44" height="44"><path d="M20 3l4.8 11 11.7 1-8.9 7.7 2.7 11.6L20 28.4 9.7 34.3l2.7-11.6L3.5 15l11.7-1z" fill="#FFC83D" stroke="#1B2540" stroke-width="3" stroke-linejoin="round"/></svg>
-        <svg class="fl fl-plus" data-depth="-18" viewBox="0 0 40 40" width="38" height="38"><path d="M16 4h8v12h12v8H24v12h-8V24H4v-8h12z" fill="#5BB8FF" stroke="#1B2540" stroke-width="3" stroke-linejoin="round"/></svg>
-        <svg class="fl fl-dot" data-depth="34" viewBox="0 0 40 40" width="34" height="34"><circle cx="20" cy="20" r="14" fill="#6EDBB4" stroke="#1B2540" stroke-width="3"/></svg>
-        <svg class="fl fl-squig" data-depth="-30" viewBox="0 0 80 24" width="76" height="24"><path d="M4 12q9-14 18 0t18 0 18 0 18 0" fill="none" stroke="#1B2540" stroke-width="4" stroke-linecap="round"/></svg>
-        <svg class="fl fl-tri" data-depth="22" viewBox="0 0 40 40" width="36" height="36"><path d="M20 5l16 28H4z" fill="#FFB3C7" stroke="#1B2540" stroke-width="3" stroke-linejoin="round"/></svg>
-        <svg class="fl fl-ring" data-depth="-24" viewBox="0 0 40 40" width="40" height="40"><circle cx="20" cy="20" r="12" fill="none" stroke="#1B2540" stroke-width="3" stroke-dasharray="4 6" stroke-linecap="round"/></svg>
-      </div>
-
       <div class="wrap hero-grid">
         <div class="hero-copy">
           <p class="sticker"><span class="pulse"></span>M.Sc. Computer Science, KIT Karlsruhe</p>
           <h1 id="title" aria-label="Tural Mammadli">
             <span class="word" aria-hidden="true">Tural</span>
-            <span class="word accent" aria-hidden="true">Mammadli<svg class="scribble" viewBox="0 0 300 22" preserveAspectRatio="none"><path pathLength="1" d="M4 14C60 3 120 20 180 9S270 12 296 6"/></svg></span>
+            <span class="word accent" aria-hidden="true">Mammadli<svg class="scribble" viewBox="0 0 300 22" preserveAspectRatio="none"><path pathLength="1" d="M2 11H298"/></svg></span>
           </h1>
           <p class="lead">I work on machine learning, computer vision and the software around them. At the moment I research how LLMs can help resolve merge conflicts in model-driven development, and I build a CRM for KIT's start-up support unit.</p>
           <div class="cta-row">
@@ -83,32 +73,28 @@
 
         <figure class="vision" id="vision">
           <div class="vision-frame" id="visionFrame">
-            <svg class="scene" viewBox="0 0 547 506" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Cartoon of a smiling sun above green hills, with a small network of connected nodes">
+            <svg class="scene" viewBox="0 0 547 506" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Illustration of a sun above green hills, with a small network of connected nodes">
               <rect class="sky" width="547" height="506" fill="#BFE6FF"/>
               <g class="night-stars" fill="#F3EFD2" stroke="#1B2540" stroke-width="2" stroke-linejoin="round"><path class="tw" d="M60 190l5 11 12 2-9 8 3 12-11-6-11 6 3-12-9-8 12-2z" transform="translate(-10 -80) scale(.8)"/><path class="tw" d="M460 70l4 9 10 1-8 7 2 10-8-5-9 5 2-10-8-7 10-1z"/><circle class="tw" cx="190" cy="60" r="5"/><circle class="tw" cx="500" cy="210" r="4"/><circle class="tw" cx="40" cy="250" r="4"/><circle class="tw" cx="270" cy="40" r="3.500"/></g>
-              <g class="cloud cloud-a" stroke="#1B2540" stroke-width="4" stroke-linejoin="round" fill="#fff"><path d="M70 120q-26 0-26-22t24-22q4-24 32-24 22 0 30 18 26-2 28 24 0 26-28 26z"/></g>
-              <g class="cloud cloud-b" stroke="#1B2540" stroke-width="4" stroke-linejoin="round" fill="#fff"><path d="M400 300q-20 0-20-17t19-17q3-18 24-18 17 0 23 14 20-2 21 18 0 20-22 20z"/></g>
+              <g class="cloud cloud-a" stroke="#1B2540" stroke-width="2.5" stroke-linejoin="round" fill="#fff"><path d="M70 120q-26 0-26-22t24-22q4-24 32-24 22 0 30 18 26-2 28 24 0 26-28 26z"/></g>
+              <g class="cloud cloud-b" stroke="#1B2540" stroke-width="2.5" stroke-linejoin="round" fill="#fff"><path d="M400 300q-20 0-20-17t19-17q3-18 24-18 17 0 23 14 20-2 21 18 0 20-22 20z"/></g>
               <g class="mascot" id="mascot" transform="translate(350 165)">
                 <g class="bob">
-                  <g class="rays" stroke="#1B2540" stroke-width="4" stroke-linejoin="round" fill="#FFB400">
+                  <g class="rays" stroke="#1B2540" stroke-width="2.5" stroke-linejoin="round" fill="#FFB400">
                     <path d="M-9 -72L0 -100L9 -72z"/><path d="M-9 -72L0 -100L9 -72z" transform="rotate(30)"/><path d="M-9 -72L0 -100L9 -72z" transform="rotate(60)"/><path d="M-9 -72L0 -100L9 -72z" transform="rotate(90)"/><path d="M-9 -72L0 -100L9 -72z" transform="rotate(120)"/><path d="M-9 -72L0 -100L9 -72z" transform="rotate(150)"/><path d="M-9 -72L0 -100L9 -72z" transform="rotate(180)"/><path d="M-9 -72L0 -100L9 -72z" transform="rotate(210)"/><path d="M-9 -72L0 -100L9 -72z" transform="rotate(240)"/><path d="M-9 -72L0 -100L9 -72z" transform="rotate(270)"/><path d="M-9 -72L0 -100L9 -72z" transform="rotate(300)"/><path d="M-9 -72L0 -100L9 -72z" transform="rotate(330)"/>
                   </g>
                   <g class="squash">
-                    <circle id="mascotBody" r="66" fill="#FFD45C" stroke="#1B2540" stroke-width="5"/>
-                    <g class="craters" fill="#1B2540"><circle cx="-44" cy="-36" r="9"/><circle cx="42" cy="-40" r="7"/><circle cx="2" cy="-50" r="4.500"/><circle cx="24" cy="50" r="6"/><circle cx="-28" cy="46" r="5"/></g>
-                    <circle cx="-40" cy="14" r="9" fill="#FF9EB5"/><circle cx="40" cy="14" r="9" fill="#FF9EB5"/>
-                    <g class="eye" transform="translate(-23 -8)"><ellipse rx="12" ry="15" fill="#fff" stroke="#1B2540" stroke-width="4"/><circle class="pupil" r="6.5" fill="#1B2540"/></g>
-                    <g class="eye" transform="translate(23 -8)"><ellipse rx="12" ry="15" fill="#fff" stroke="#1B2540" stroke-width="4"/><circle class="pupil" r="6.5" fill="#1B2540"/></g>
-                    <path class="mouth" d="M-20 24Q0 44 20 24" fill="none" stroke="#1B2540" stroke-width="5" stroke-linecap="round"/>
+                    <circle id="mascotBody" r="66" fill="#FFD45C" stroke="#1B2540" stroke-width="3"/>
+                    <g class="craters" fill="#1B2540"><circle cx="-30" cy="-26" r="13"/><circle cx="26" cy="-34" r="8"/><circle cx="30" cy="22" r="15"/><circle cx="-24" cy="30" r="7"/><circle cx="-4" cy="2" r="5"/></g>
                   </g>
                 </g>
               </g>
-              <path class="hill-a" d="M0 390C90 330 200 340 290 380C380 415 470 360 547 340V506H0Z" fill="#9BE7C9" stroke="#1B2540" stroke-width="4" stroke-linejoin="round"/>
-              <path class="hill-b" d="M0 452C110 407 230 427 330 457C420 482 490 442 547 427V506H0Z" fill="#6FD6AD" stroke="#1B2540" stroke-width="4" stroke-linejoin="round"/>
-              <g class="net" stroke="#1B2540" stroke-width="3" stroke-linecap="round" opacity=".75">
+              <path class="hill-a" d="M0 390C90 330 200 340 290 380C380 415 470 360 547 340V506H0Z" fill="#9BE7C9" stroke="#1B2540" stroke-width="2.5" stroke-linejoin="round"/>
+              <path class="hill-b" d="M0 452C110 407 230 427 330 457C420 482 490 442 547 427V506H0Z" fill="#6FD6AD" stroke="#1B2540" stroke-width="2.5" stroke-linejoin="round"/>
+              <g class="net" stroke="#1B2540" stroke-width="2" stroke-linecap="round" opacity=".7">
                 <path d="M70 300L130 255M130 255L205 300M205 300L255 262M130 255L255 262M130 255L150 345M205 300L150 345M70 300L150 345"/>
               </g>
-              <g fill="#fff" stroke="#1B2540" stroke-width="4">
+              <g fill="#fff" stroke="#1B2540" stroke-width="2.5">
                 <circle class="nd" cx="70" cy="300" r="10"/><circle class="nd" cx="130" cy="255" r="12"/><circle class="nd" cx="205" cy="300" r="10"/>
                 <circle class="nd" cx="255" cy="262" r="9"/><circle class="nd" cx="150" cy="345" r="9"/>
               </g>
@@ -124,9 +110,8 @@
             <div class="box box-net" aria-hidden="true"><span class="tag">network 0.94</span></div>
             <div class="scan" aria-hidden="true"></div>
             <div class="readout mono" id="vReadout" aria-hidden="true">patch --,--</div>
-            <button class="bubble" id="bubble" type="button">Hi!</button>
           </div>
-          <figcaption class="mono">Illustrative overlay, no model is running. Poke the sun, or move over the scene to inspect patches.</figcaption>
+          <figcaption class="mono">Illustrative overlay, no model is running. Move over the scene to inspect patches.</figcaption>
         </figure>
       </div>
     </section>
@@ -174,7 +159,6 @@
     </section>
 
     <!-- SKILLS -->
-    <div class="wave w-sky" aria-hidden="true"></div>
     <section class="section band band-sky" id="skills">
       <div class="wrap">
         <div class="sec-head reveal"><span class="label mono"><i class="node"></i>02 / skills</span></div>
@@ -195,7 +179,6 @@
         </div>
       </div>
     </section>
-    <div class="wave w-sky flip" aria-hidden="true"></div>
 
     <!-- EXPERIENCE -->
     <section class="section" id="experience">
@@ -269,7 +252,6 @@
     </section>
 
     <!-- PROJECTS -->
-    <div class="wave w-sun" aria-hidden="true"></div>
     <section class="section band band-sun" id="projects">
       <div class="wrap">
         <div class="sec-head reveal"><span class="label mono"><i class="node"></i>04 / projects</span></div>
@@ -358,7 +340,6 @@
         </div>
       </div>
     </section>
-    <div class="wave w-sun flip" aria-hidden="true"></div>
 
     <!-- LAB -->
     <section class="section" id="lab">
@@ -401,16 +382,74 @@
       </div>
     </section>
 
+    <!-- CINEMA -->
+    <section class="cinema" id="cinema" aria-labelledby="cinemaTitle">
+      <div class="wrap">
+        <div class="sec-head reveal"><span class="label mono"><i class="node"></i>06 / cinema</span></div>
+      </div>
+      <div class="hall reveal">
+        <div class="curtain curtain-l" aria-hidden="true"></div>
+        <div class="curtain curtain-r" aria-hidden="true"></div>
+        <div class="beam" aria-hidden="true"></div>
+        <div class="dust" id="dust" aria-hidden="true"></div>
+        <span class="exit mono" aria-hidden="true">exit</span>
+
+        <div class="screen-wrap">
+          <div class="screen">
+            <div class="screen-head">
+              <h2 id="cinemaTitle">Now showing</h2>
+              <p class="mono">my top three films</p>
+            </div>
+            <ol class="picks">
+              <li class="pick pick-1">
+                <a href="https://letterboxd.com/film/12-angry-men/" target="_blank" rel="noopener">
+                  <span class="poster" aria-hidden="true">
+                    <svg viewBox="0 0 120 180"><circle class="fan" cx="60" cy="52" r="3"/><g class="ring"><circle cx="60" cy="34" r="6"/><circle cx="77" cy="38.500" r="6"/><circle cx="89.500" cy="51" r="6"/><circle cx="94" cy="68" r="6"/><circle cx="89.500" cy="85" r="6"/><circle cx="77" cy="97.500" r="6"/><circle cx="60" cy="102" r="6"/><circle cx="43" cy="97.500" r="6"/><circle cx="30.500" cy="85" r="6"/><circle cx="26" cy="68" r="6"/><circle cx="30.500" cy="51" r="6"/><circle cx="43" cy="38.500" r="6"/></g><rect class="table" x="46" y="56" width="28" height="24" rx="4"/></svg>
+                    <b>1</b>
+                  </span>
+                  <span class="meta"><strong>12 Angry Men</strong><span class="mono">1957 · Sidney Lumet</span><span class="line">Twelve jurors, one room, one verdict.</span></span>
+                </a>
+              </li>
+              <li class="pick pick-2">
+                <a href="https://letterboxd.com/film/memento/" target="_blank" rel="noopener">
+                  <span class="poster" aria-hidden="true">
+                    <svg viewBox="0 0 120 180"><rect class="polaroid" x="22" y="30" width="76" height="92" rx="3"/><rect class="photo" x="29" y="37" width="62" height="62"/><path class="fade" d="M29 99V70q14-12 30-2t32-8v39z"/><path class="scrawl" d="M32 112h40M32 117h24"/></svg>
+                    <b>2</b>
+                  </span>
+                  <span class="meta"><strong>Memento</strong><span class="mono">2000 · Christopher Nolan</span><span class="line">A man with no short-term memory hunts for answers.</span></span>
+                </a>
+              </li>
+              <li class="pick pick-3">
+                <a href="https://letterboxd.com/film/prisoners/" target="_blank" rel="noopener">
+                  <span class="poster" aria-hidden="true">
+                    <svg viewBox="0 0 120 180"><g class="rain"><path d="M18 10l-8 30M38 0l-8 30M58 14l-8 30M78 4l-8 30M98 16l-8 30M28 60l-8 30M48 70l-8 30M68 56l-8 30M88 74l-8 30M108 62l-8 30M14 112l-8 30M38 122l-8 30M62 110l-8 30M86 126l-8 30M110 116l-8 30"/></g><path class="road" d="M0 180L46 128H74L120 180Z"/><circle class="light" cx="60" cy="122" r="4.500"/></svg>
+                    <b>3</b>
+                  </span>
+                  <span class="meta"><strong>Prisoners</strong><span class="mono">2013 · Denis Villeneuve</span><span class="line">Two girls vanish and a father takes the search into his own hands.</span></span>
+                </a>
+              </li>
+            </ol>
+            <p class="credits"><a class="lb" href="https://letterboxd.com/turalcik/" target="_blank" rel="noopener">The rest of my watchlist is on Letterboxd <span aria-hidden="true">→</span></a></p>
+          </div>
+        </div>
+
+        <div class="seats" aria-hidden="true">
+          <div class="row row-1"></div>
+          <div class="row row-2"></div>
+          <div class="row row-3"></div>
+        </div>
+      </div>
+    </section>
+
     <!-- CONTACT -->
-    <div class="wave w-mint" aria-hidden="true"></div>
     <section class="section band band-mint contact" id="contact">
       <div class="wrap">
-        <div class="sec-head reveal"><span class="label mono"><i class="node"></i>06 / contact</span></div>
+        <div class="sec-head reveal"><span class="label mono"><i class="node"></i>07 / contact</span></div>
         <div class="contact-card reveal">
           <svg class="envelope" viewBox="0 0 120 90" width="120" height="90" aria-hidden="true">
-            <rect x="8" y="22" width="104" height="62" rx="10" fill="#fff" stroke="#1B2540" stroke-width="5"/>
-            <path class="flap" d="M10 28L60 62L110 28" fill="#FFC83D" stroke="#1B2540" stroke-width="5" stroke-linejoin="round" stroke-linecap="round"/>
-            <circle cx="96" cy="18" r="10" fill="#FF7A5C" stroke="#1B2540" stroke-width="4"/>
+            <rect x="8" y="22" width="104" height="62" rx="10" fill="#fff" stroke="#1B2540" stroke-width="3"/>
+            <path class="flap" d="M10 28L60 62L110 28" fill="#FFC83D" stroke="#1B2540" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+            <circle cx="96" cy="18" r="10" fill="#FF7A5C" stroke="#1B2540" stroke-width="3"/>
           </svg>
           <h2>Get in touch</h2>
           <p>Email is the quickest way to reach me. I also read messages on LinkedIn.</p>
@@ -486,6 +525,6 @@
     </svg></div></div>
   </div>
 
-  <script src="main.js?v=2"></script>
+  <script src="main.js?v=3"></script>
 </body>
 </html>
